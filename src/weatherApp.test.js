@@ -22,6 +22,7 @@ describe('getCurrentTemperature', () => {
       </div>
     `;
     jest.spyOn(global, 'Date').mockImplementation(() => ({
+      getTime: jest.fn(() => 1234567890),
       toLocaleDateString: jest.fn(() => '2023-01-01'),
       toLocaleTimeString: jest.fn(() => '12:00:00'),
     }));
