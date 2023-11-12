@@ -25,7 +25,7 @@ Clone the repository to your local machine:
 2.	Run the application:
     npm start
   	
-3.	Open your browser and navigate to http://localhost:3000 to view the weather app.
+3.	Open your browser and navigate to http://localhost:8080 to view the weather app.
 4.	Run the tests:
 
   	npm test
