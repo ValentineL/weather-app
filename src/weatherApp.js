@@ -17,29 +17,39 @@ export async function getCurrentTemperature() {
       }
 
       const currentTemperature = data.main.temp;
-      document.getElementById('temperature').innerText = currentTemperature.toFixed(2);
+
+      const temperatureElement = document.getElementById('temperature');
+      if (temperatureElement) {
+        temperatureElement.innerText = currentTemperature.toFixed(2);
+      } else {
+        console.error('Error: temperature element not found');
+      }
 
       const now = new Date();
       const date = now.toLocaleDateString();
       const time = now.toLocaleTimeString();
 
       const table = document.getElementById('data-table');
-      const row = table.insertRow(0);
-      const cell1 = row.insertCell(0);
-      const cell2 = row.insertCell(1);
-      const cell3 = row.insertCell(2);
+      if (table) {
+        const row = table.insertRow(0);
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
 
-      cell1.innerText = date;
-      cell2.innerText = time;
-      cell3.innerText = currentTemperature.toFixed(2);
+        cell1.innerText = date;
+        cell2.innerText = time;
+        cell3.innerText = currentTemperature.toFixed(2);
 
-      temperatures.unshift(currentTemperature);
+        temperatures.unshift(currentTemperature);
 
-      if (temperatures.length > 100) {
-        temperatures.pop();
+        if (temperatures.length > 100) {
+          temperatures.pop();
+        }
+
+        drawChart();
+      } else {
+        console.error('Error: data-table element not found');
       }
-
-      drawChart();
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
@@ -54,7 +64,6 @@ export function drawChart() {
   }
 
   const chartElement = document.getElementById('temperature-chart');
-  console.log('CHART', chartElement)
   if (chartElement) {
     const ctx = chartElement.getContext('2d');
     const labels = Array.from({ length: temperatures.length }, (_, i) => '');
