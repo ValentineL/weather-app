@@ -1,8 +1,11 @@
 import Chart from 'chart.js/auto';
-import './styles.css'; 
+import 'chartjs-adapter-date-fns'; 
+import './styles.css';
 
 const apiKey = '2e73239fa8366c87781fe87f79d99170';
-const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=' + apiKey;
+const apiUrl =
+  'https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=' +
+  apiKey;
 
 let temperatures = [];
 
@@ -26,6 +29,7 @@ export async function getCurrentTemperature() {
       }
 
       const now = new Date();
+      const timestamp = now.getTime(); // Get timestamp
       const date = now.toLocaleDateString();
       const time = now.toLocaleTimeString();
 
@@ -40,7 +44,7 @@ export async function getCurrentTemperature() {
         cell2.innerText = time;
         cell3.innerText = currentTemperature.toFixed(2);
 
-        temperatures.unshift(currentTemperature);
+        temperatures.unshift({ timestamp, temperature: currentTemperature });
 
         if (temperatures.length > 100) {
           temperatures.pop();
@@ -66,16 +70,18 @@ export function drawChart() {
   const chartElement = document.getElementById('temperature-chart');
   if (chartElement) {
     const ctx = chartElement.getContext('2d');
-    const labels = Array.from({ length: temperatures.length }, (_, i) => '');
+    const labels = temperatures.map((data) => new Date(data.timestamp));
     const data = {
-      labels: labels,
-      datasets: [{
-        label: 'Temperature',
-        data: temperatures,
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      }]
+      labels,
+      datasets: [
+        {
+          label: 'Temperature',
+          data: temperatures.map((data) => data.temperature),
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1,
+        },
+      ],
     };
 
     // Create a new chart using the installed Chart.js package
@@ -85,15 +91,20 @@ export function drawChart() {
       options: {
         scales: {
           x: {
-            type: 'linear',
-            position: 'bottom'
-          }
-        }
-      }
+            type: 'time', // Use time scale for x-axis
+            time: {
+              unit: 'minute', // You can adjust the time unit as needed
+            },
+            position: 'bottom',
+          },
+          y: {
+            beginAtZero: false,
+          },
+        },
+      },
     });
   }
 }
-
 
 // Get initial temperature
 getCurrentTemperature();
