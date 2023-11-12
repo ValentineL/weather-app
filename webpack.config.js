@@ -36,5 +36,6 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, 'dist'), // this is the desired output directory
     open: true,
+    hot: true,
   },
 };

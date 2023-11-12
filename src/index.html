@@ -7,18 +7,20 @@
 </head>
 <body>
   <div id="current-temperature">Current Temperature in London: <span id="temperature"></span>&deg;C</div>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Temperature (&deg;C)</th>
-      </tr>
-    </thead>
-    <tbody id="data-table"></tbody>
-  </table>
-  <div id="chart-container">
-    <canvas id="temperature-chart" width="600" height="300"></canvas>
+  <div class="wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Temperature (&deg;C)</th>
+        </tr>
+      </thead>
+      <tbody id="data-table"></tbody>
+    </table>
+    <div id="chart-container">
+      <canvas id="temperature-chart" width="600" height="300"></canvas>
+    </div>
   </div>
   <script src="bundle.js"></script>
 </body>

@@ -1,7 +1,8 @@
 table {
   border-collapse: collapse;
-  width: 100%;
+  width: 50%;
   margin-top: 20px;
+  margin-right: 20px;
 }
 
 table, th, td {
@@ -15,5 +16,11 @@ th, td {
 
 #chart-container {
   margin-top: 20px;
+  width: 50%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
 }
   
