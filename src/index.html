@@ -4,14 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <h1>Weather App</h1>
-
-  <p id="current-temperature">Current Temperature: <span id="temperature"></span>&deg;C</p>
-
+  <div id="current-temperature">Current Temperature: <span id="temperature"></span>&deg;C</div>
   <table>
     <thead>
       <tr>
@@ -22,12 +17,9 @@
     </thead>
     <tbody id="data-table"></tbody>
   </table>
-
   <div id="chart-container">
     <canvas id="temperature-chart" width="600" height="300"></canvas>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="/weatherApp.js" defer></script>
+  <script src="bundle.js"></script>
 </body>
 </html>
